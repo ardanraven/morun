@@ -68,20 +68,12 @@
             animation: mysticGlow 6s ease-in-out infinite;
         }
 
-        /* Efeito de brilho no card */
-        .card-glow::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 70%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            transform: skewX(-25deg);
-            transition: left 0.7s ease-in-out;
-        }
-        .group:hover .card-glow::before {
-            left: 150%;
+        /* Efeito Parallax */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         /* Animações de entrada */
@@ -101,11 +93,11 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            --s: 1s;
+            --s: 3s;
         }
 
         #pentagram-divider .anim > * {
-            animation: StrokeAnim var(--s) linear forwards reverse;
+            animation: StrokeAnim var(--s) linear infinite reverse; /* Changed forwards to infinite */
         }
 
         #pentagram-divider .anim > *:nth-child(1) {
@@ -134,8 +126,8 @@
         </div>
     </header>
 
-    <section class="min-h-screen flex flex-col justify-center items-center text-center pt-32 md:pt-40 px-4 relative overflow-hidden bg-gradient-to-b from-[#111111] to-[#0a0a0a]">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/20 via-black/60 to-black z-0"></div>
+    <section class="min-h-screen flex flex-col justify-center items-center text-center pt-32 md:pt-40 px-4 relative parallax-bg" style="background-image: url('https://placehold.co/1920x1080/0a0a0a/121212?text=Background+Mistico');">
+        <div class="absolute inset-0 bg-black/70 z-0"></div>
         <div class="z-10 relative">
             <h1 class="font-serif-display text-6xl md:text-8xl font-bold gold-text-gradient mb-4 drop-shadow-lg mystic-glow-text tracking-wider">
                 Mórun Intenções
@@ -157,27 +149,27 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-10">
-                <div class="group card-bg border border-[#c09f58]/20 rounded-xl p-6 text-center transform transition-all duration-500 hover:scale-105 hover:border-[#c09f58]/50 hover:shadow-2xl hover:shadow-[#c09f58]/10">
-                    <div class="card-glow">
-                        <img src="https://i.ibb.co/LXpGHS0V/1.jpg" alt="Óleo Intencional" class="w-full h-56 object-cover rounded-lg mb-6 border-2 border-[#c09f58]/30">
+                <div class="group card-bg border border-[#c09f58]/20 rounded-xl transform transition-all duration-500 hover:scale-105 hover:border-[#c09f58]/50 hover:shadow-2xl hover:shadow-[#c09f58]/10 overflow-hidden">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/LXpGHS0V/1.jpg');"></div>
+                    <div class="p-6 text-center">
                         <h3 class="font-serif-display text-3xl font-bold text-[#fde08d] mb-3 tracking-wide">Óleo Intencional</h3>
-                        <p class="text-gray-400 mb-6 font-light">Cada gota é uma poção, misturando óleos e ervas consagradas para alinhar suas energias com os desejos de sua alma.</p>
+                        <p class="text-gray-400 mb-6 font-light">Cada gota é uma poção, misturando óleos e ervas consagradas para alinhar suas energias.</p>
                         <button class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider">Saiba Mais</button>
                     </div>
                 </div>
-                <div class="group card-bg border border-[#c09f58]/20 rounded-xl p-6 text-center transform transition-all duration-500 hover:scale-105 hover:border-[#c09f58]/50 hover:shadow-2xl hover:shadow-[#c09f58]/10">
-                    <div class="card-glow">
-                        <img src="https://i.ibb.co/PsFMNzsP/2.jpg" alt="Grimório Artesanal" class="w-full h-56 object-cover rounded-lg mb-6 border-2 border-[#c09f58]/30">
+                <div class="group card-bg border border-[#c09f58]/20 rounded-xl transform transition-all duration-500 hover:scale-105 hover:border-[#c09f58]/50 hover:shadow-2xl hover:shadow-[#c09f58]/10 overflow-hidden">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/PsFMNzsP/2.jpg');"></div>
+                    <div class="p-6 text-center">
                         <h3 class="font-serif-display text-3xl font-bold text-[#fde08d] mb-3 tracking-wide">Grimório Artesanal</h3>
-                        <p class="text-gray-400 mb-6 font-light">Páginas que aguardam seus feitiços. Um grimório feito à mão para ser o guardião de sua jornada mágica.</p>
+                        <p class="text-gray-400 mb-6 font-light">Páginas que aguardam seus feitiços, um guardião para sua jornada mágica.</p>
                         <button class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider">Saiba Mais</button>
                     </div>
                 </div>
-                <div class="group card-bg border border-[#c09f58]/20 rounded-xl p-6 text-center transform transition-all duration-500 hover:scale-105 hover:border-[#c09f58]/50 hover:shadow-2xl hover:shadow-[#c09f58]/10">
-                    <div class="card-glow">
-                        <img src="https://i.ibb.co/5X1NydsS/3.jpg" alt="Capas Medievais" class="w-full h-56 object-cover rounded-lg mb-6 border-2 border-[#c09f58]/30">
+                <div class="group card-bg border border-[#c09f58]/20 rounded-xl transform transition-all duration-500 hover:scale-105 hover:border-[#c09f58]/50 hover:shadow-2xl hover:shadow-[#c09f58]/10 overflow-hidden">
+                     <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/5X1NydsS/3.jpg');"></div>
+                    <div class="p-6 text-center">
                         <h3 class="font-serif-display text-3xl font-bold text-[#fde08d] mb-3 tracking-wide">Capas Medievais</h3>
-                        <p class="text-gray-400 mb-6 font-light">Vista-se com o mistério da noite. Capas tecidas com fios de poder, perfeitas para rituais ou para o dia a dia.</p>
+                        <p class="text-gray-400 mb-6 font-light">Vista-se com o mistério da noite, com capas tecidas com fios de poder.</p>
                         <button class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider">Saiba Mais</button>
                     </div>
                 </div>
@@ -225,10 +217,12 @@
 
         <section id="sobre" class="mb-24 md:mb-32 fade-in-section">
             <div class="flex flex-col lg:flex-row items-center gap-12 card-bg p-8 md:p-12 rounded-xl border border-[#c09f58]/20">
-                <div class="lg:w-1/3 text-center">
-                    <img src="https://i.ibb.co/YFVvSxRz/4.jpg" alt="Mórun" class="w-52 h-52 md:w-64 md:h-64 rounded-full mx-auto object-cover border-4 border-[#c09f58] shadow-2xl shadow-[#c09f58]/20">
-                    <h3 class="font-serif-display text-4xl font-bold text-[#fde08d] mt-6 tracking-wide">Mórun</h3>
-                    <p class="text-gray-400/90 italic">Oráculo e Guardiã dos Segredos</p>
+                <div class="lg:w-1/3 flex-shrink-0">
+                     <div class="w-64 h-64 md:w-80 md:h-80 rounded-full mx-auto parallax-bg border-4 border-[#c09f58] shadow-2xl shadow-[#c09f58]/20" style="background-image: url('https://i.ibb.co/YFVvSxRz/4.jpg');"></div>
+                     <div class="text-center">
+                        <h3 class="font-serif-display text-4xl font-bold text-[#fde08d] mt-6 tracking-wide">Mórun</h3>
+                        <p class="text-gray-400/90 italic">Oráculo e Guardiã dos Segredos</p>
+                     </div>
                 </div>
                 <div class="lg:w-2/3">
                     <h2 class="font-serif-display text-4xl md:text-5xl font-semibold gold-text-gradient mb-6 mystic-glow-text tracking-wide">A Guardiã das Chaves</h2>
@@ -294,8 +288,14 @@
         sections.forEach(section => {
             observer.observe(section);
         });
+
+        // Simplified Parallax for mobile compatibility
+        // The CSS `background-attachment: fixed` will handle the parallax effect on desktop.
+        // This script is removed to avoid conflicts and improve performance on mobile.
+
     </script>
 
 </body>
 </html>
+
 
