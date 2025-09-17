@@ -26,13 +26,16 @@
             color: var(--dark-bg);
         }
 
+        html {
+             scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--dark-bg);
             background-image: radial-gradient(circle at 25% 25%, rgba(192, 159, 88, 0.05), transparent 30%),
                               radial-gradient(circle at 75% 75%, rgba(192, 159, 88, 0.05), transparent 30%);
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
             letter-spacing: 0.5px;
             cursor: none; /* Esconde o cursor padrão */
         }
@@ -58,7 +61,7 @@
             width: 40px;
             height: 40px;
             border: 2px solid rgba(192, 159, 88, 0.5);
-            transition: width 0.3s, height 0.3s, border-color 0.3s, top 0.2s ease-out, left 0.2s ease-out;
+            transition: width 0.3s, height 0.3s, border-color 0.3s, top 0.1s ease-out, left 0.1s ease-out;
         }
         body:hover .cursor-dot, body:hover .cursor-outline {
             opacity: 1;
@@ -149,7 +152,6 @@
             transform: translateY(0);
         }
 
-        /* Header com efeito de scroll */
         header {
             transition: background-color 0.4s ease-out, backdrop-filter 0.4s ease-out, box-shadow 0.4s ease-out;
         }
@@ -181,7 +183,6 @@
             width: 100%;
         }
         
-        /* Indicador de Scroll */
         .scroll-indicator {
             position: absolute;
             bottom: 40px;
@@ -192,21 +193,17 @@
         }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); } 40% { transform: translate(-50%, -20px); } 60% { transform: translate(-50%, -10px); } }
         
-        /* Seção Oráculo */
-        #oracle-answer {
-            min-height: 100px;
-            transition: opacity 1s ease-in-out;
-        }
-        #oracle-thinking {
-            display: none;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        /* Sistema de Cartas do Oráculo */
+        .perspective { perspective: 1000px; }
+        .transform-style-preserve-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        #card.is-flipped { transform: rotateY(180deg); }
+
     </style>
 </head>
 <body class="bg-black">
     
-    <!-- Cursor Personalizado -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -249,7 +246,6 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-10">
-                <!-- Card 1 -->
                 <div class="group card-bg border border-[var(--gold)]/20 rounded-xl overflow-hidden">
                     <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/LXpGHS0V/1.jpg');"></div>
                     <div class="p-8 text-center">
@@ -260,7 +256,6 @@
                         </a>
                     </div>
                 </div>
-                <!-- Card 2 -->
                 <div class="group card-bg border border-[var(--gold)]/20 rounded-xl overflow-hidden">
                     <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/PsFMNzsP/2.jpg');"></div>
                     <div class="p-8 text-center">
@@ -271,7 +266,6 @@
                         </a>
                     </div>
                 </div>
-                <!-- Card 3 -->
                 <div class="group card-bg border border-[var(--gold)]/20 rounded-xl overflow-hidden">
                      <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/5X1NydsS/3.jpg');"></div>
                     <div class="p-8 text-center">
@@ -300,25 +294,30 @@
             </div>
         </section>
 
-        <!-- NOVA SEÇÃO: ORÁCULO -->
+        <!-- SEÇÃO ORÁCULO REFORMULADA -->
         <section id="oraculo" class="mb-24 md:mb-32 fade-in-section text-center">
             <div class="text-center mb-16">
                 <h2 class="font-serif-display text-5xl md:text-6xl font-semibold gold-text-gradient mystic-glow-text tracking-wide">Consulte o Oráculo</h2>
-                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Silencie sua mente, concentre-se em sua questão e clique para receber uma mensagem.</p>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Silencie sua mente, concentre-se em sua questão e puxe uma carta para receber sua mensagem.</p>
                 <div class="mt-6 w-24 h-px bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent mx-auto"></div>
             </div>
 
-            <div class="max-w-3xl mx-auto card-bg p-8 md:p-12 rounded-xl border border-[var(--gold)]/20">
-                <div id="oracle-answer" class="font-serif-display italic text-2xl text-gray-300 flex items-center justify-center">
-                    <p>O véu aguarda sua intenção...</p>
+            <div class="flex flex-col items-center">
+                <div class="w-[280px] h-[440px] perspective mb-8">
+                    <div id="card" class="w-full h-full relative transition-transform duration-1000 transform-style-preserve-3d">
+                        <!-- Verso da Carta -->
+                        <div class="absolute w-full h-full backface-hidden rounded-xl border-2 border-[var(--gold)]/50 p-4 flex items-center justify-center" style="background: radial-gradient(circle, #1a1a1a, #121212);">
+                             <img src="https://i.ibb.co/YBN2pyJf/Imagem-do-Whats-App-de-2025-09-16-s-16-07-57-8d309fe9.jpg" alt="Verso da Carta" class="w-3/4 h-auto opacity-20">
+                        </div>
+                        <!-- Frente da Carta -->
+                        <div id="card-front" class="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl border-2 border-[var(--light-gold)]/70 p-8 flex flex-col items-center justify-center text-center" style="background: radial-gradient(circle, #2a2a2a, #1a1a1a);">
+                            <h4 id="card-title" class="font-serif-display text-3xl font-bold text-[var(--light-gold)] mb-4"></h4>
+                            <div id="card-icon" class="w-20 h-20 text-[var(--gold)] mb-4"></div>
+                            <p id="card-message" class="text-gray-300 font-light leading-relaxed"></p>
+                        </div>
+                    </div>
                 </div>
-                 <div id="oracle-thinking" class="flex justify-center items-center my-4">
-                     <svg class="w-16 h-16 text-[var(--gold)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.792V6.32a2.25 2.25 0 00-2.25-2.25h-5.379a2.25 2.25 0 00-1.591.659l-4-592 4.592a2.25 2.25 0 000 3.182l4.592 4.592a2.25 2.25 0 003.182 0l4.592-4.592a2.25 2.25 0 00.659-1.591z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 9.75a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0z" />
-                    </svg>
-                </div>
-                <button id="oracle-button" class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider mt-8">Revelar Destino</button>
+                <button id="oracle-button" class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider">Puxar uma Carta</button>
             </div>
         </section>
 
@@ -362,8 +361,7 @@
                 <a href="https://www.instagram.com/nina.morun/" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-[var(--gold)] transition-colors duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c-4.01.053-4.484.06-6.096.126-1.613.065-2.73.33-3.693.712-.98.39-1.84.92-2.673 1.753C-.73 5.56.2 6.42.59 7.393c.383.963.647 2.08.712 3.693.066 1.612.074 2.086.06 6.096-.014 4.01-.053 4.484-.126 6.096-.065 1.613-.33 2.73-.712 3.693-.39.98-.92 1.84-1.753 2.673-.97 1.1-2.16 1.42-3.693.59-.963-.383-2.08-.647-3.693-.712-1.612-.066-2.086-.074-6.096-.06 4.01.014 4.484.053 6.096.126 1.613.065 2.73.33 3.693.712.98.39 1.84.92 2.673 1.753.833.833 1.363 1.693 1.753 2.673.383.963.647 2.08.712 3.693.066 1.612.074 2.086.06 6.096.014-4.01.053-4.484.126-6.096.065-1.613.33-2.73.712-3.693.39-.98.92-1.84 1.753-2.673.833-.833 1.693-1.363 2.673-1.753.963-.383 2.08-.647 3.693-.712 1.612-.066 2.086-.074 6.096-.06zm-1.88 2.01c-3.6 0-6.49 2.89-6.49 6.49s2.89 6.49 6.49 6.49 6.49-2.89 6.49-6.49-2.89-6.49-6.49-6.49zm0 10.92c-2.45 0-4.43-1.98-4.43-4.43s1.98-4.43 4.43-4.43 4.43 1.98 4.43 4.43-1.98 4.43-4.43 4.43zm4.72-8.31a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd" /></svg>
                 </a>
-                <!-- Adicionar outros ícones sociais se necessário -->
-            </div>
+             </div>
             <p class="tracking-wide">&copy; 2025 Mórun Intenções. Todos os direitos reservados.</p>
             <p class="text-sm mt-2 font-serif-display italic text-[var(--gold)]/60">A magia está em suas mãos.</p>
         </div>
@@ -372,7 +370,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // Script para animação de fade-in ao rolar a página
             const sections = document.querySelectorAll('.fade-in-section');
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -384,37 +381,21 @@
             }, { threshold: 0.1 });
             sections.forEach(section => { observer.observe(section); });
 
-            // Script para header com efeito de scroll
             const header = document.getElementById('main-header');
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+                window.scrollY > 50 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
             });
 
-            // Script para cursor personalizado
             const cursorDot = document.querySelector('.cursor-dot');
             const cursorOutline = document.querySelector('.cursor-outline');
             window.addEventListener('mousemove', (e) => {
-                const posX = e.clientX;
-                const posY = e.clientY;
-
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-
-                cursorOutline.style.left = `${posX}px`;
-                cursorOutline.style.top = `${posY}px`;
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                cursorOutline.style.left = `${e.clientX}px`;
+                cursorOutline.style.top = `${e.clientY}px`;
             });
-
-            // CORREÇÃO: Oculta a auréola do cursor durante o clique para garantir que não intercepte o evento
-            window.addEventListener('mousedown', () => {
-                cursorOutline.style.opacity = '0';
-            });
-            window.addEventListener('mouseup', () => {
-                cursorOutline.style.opacity = '1';
-            });
+            window.addEventListener('mousedown', () => { cursorOutline.style.opacity = '0'; });
+            window.addEventListener('mouseup', () => { cursorOutline.style.opacity = '1'; });
 
             const interactiveElements = document.querySelectorAll('a, button');
             interactiveElements.forEach(el => {
@@ -422,45 +403,73 @@
                 el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovered'));
             });
 
-            // Script para o Oráculo
+            // --- NOVO SISTEMA DE ORÁCULO ---
             const oracleButton = document.getElementById('oracle-button');
-            const oracleAnswerEl = document.getElementById('oracle-answer');
-            const oracleThinkingEl = document.getElementById('oracle-thinking');
-            
-            const oracleAnswers = [
-                "A energia flui onde a intenção vai. Concentre-se no que deseja, não no que teme.",
-                "As estrelas se alinham a seu favor. Aja com coragem e o universo responderá.",
-                "Uma porta se fechará para que um novo caminho se revele. Confie na transição.",
-                "A semente da prosperidade já foi plantada. Regue-a com gratidão e paciência.",
-                "Olhe para dentro. A resposta que você busca já reside em sua intuição.",
-                "O poder da lua crescente impulsiona seus projetos. É hora de iniciar.",
-                "Como a fênix, você ressurgirá mais forte das cinzas da dificuldade.",
-                "A teia do destino é tecida com fios de suas próprias escolhas. Escolha com sabedoria.",
-                "Proteja sua energia. Nem todos que sorriem desejam o seu bem.",
-                "O amor que você procura está mais perto do que imagina. Abra seu coração."
+            const cardEl = document.getElementById('card');
+            const cardTitleEl = document.getElementById('card-title');
+            const cardIconEl = document.getElementById('card-icon');
+            const cardMessageEl = document.getElementById('card-message');
+
+            const oracleCards = [
+                {
+                    title: 'A Estrela',
+                    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>`,
+                    message: "Esperança e inspiração iluminam seu caminho. Siga sua intuição, pois ela é sua guia mais verdadeira neste momento de clareza."
+                },
+                {
+                    title: 'A Chave',
+                    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12a4 4 0 11-8 0 4 4 0 018 0zm-4 4v4m0-12V4m6 8h4m-12 0H4"></path></svg>`,
+                    message: "Uma solução ou oportunidade está ao seu alcance. A porta para um novo começo está prestes a se abrir; você só precisa girar a chave."
+                },
+                {
+                    title: 'A Lua',
+                    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg>`,
+                    message: "Mistérios e ilusões podem turvar sua visão. Confie nos seus instintos mais profundos para navegar pelas sombras e encontrar a verdade oculta."
+                },
+                {
+                    title: 'O Sol',
+                    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
+                    message: "Sucesso, vitalidade e alegria radiante estão a caminho. Abrace a positividade e a clareza que este momento oferece."
+                },
+                 {
+                    title: 'A Ampulheta',
+                    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 20V4a2 2 0 012-2h8a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2zM8 6h8M8 18h8M12 6v12"></path></svg>`,
+                    message: "O tempo é um fator crucial. Seja paciente, pois tudo tem seu momento certo para acontecer. Não apresse o que precisa amadurecer."
+                }
             ];
+
+            let isCardRevealed = false;
+
+            const drawNewCard = () => {
+                const randomIndex = Math.floor(Math.random() * oracleCards.length);
+                const randomCard = oracleCards[randomIndex];
+
+                // Atualiza o conteúdo da frente da carta
+                cardTitleEl.textContent = randomCard.title;
+                cardIconEl.innerHTML = randomCard.icon;
+                cardMessageEl.textContent = randomCard.message;
+
+                // Vira a carta
+                cardEl.classList.add('is-flipped');
+                isCardRevealed = true;
+                oracleButton.textContent = 'Puxar Outra Carta';
+                oracleButton.disabled = false;
+            };
 
             oracleButton.addEventListener('click', () => {
                 oracleButton.disabled = true;
-                oracleButton.textContent = 'Canalizando...';
-                oracleAnswerEl.style.opacity = 0;
-                oracleThinkingEl.style.display = 'flex';
 
-                setTimeout(() => {
-                    const randomIndex = Math.floor(Math.random() * oracleAnswers.length);
-                    const randomAnswer = oracleAnswers[randomIndex];
-                    
-                    oracleThinkingEl.style.display = 'none';
-                    oracleAnswerEl.innerHTML = `<p>"${randomAnswer}"</p>`;
-                    
-                    // CORREÇÃO: Força o navegador a processar a mudança de conteúdo antes de iniciar a animação de fade-in
-                    setTimeout(() => {
-                        oracleAnswerEl.style.opacity = 1;
-                    }, 20);
-                    
-                    oracleButton.disabled = false;
-                    oracleButton.textContent = 'Revelar Novo Destino';
-                }, 2500);
+                if (isCardRevealed) {
+                    // Se a carta estiver virada, vira de volta primeiro
+                    cardEl.classList.remove('is-flipped');
+                    isCardRevealed = false;
+                    oracleButton.textContent = 'Canalizando...';
+                    // Espera a animação de volta terminar para puxar a nova
+                    setTimeout(drawNewCard, 1000); 
+                } else {
+                    // Se for a primeira vez, apenas puxa a carta
+                    drawNewCard();
+                }
             });
         });
     </script>
