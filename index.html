@@ -3,75 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mórun Intenções</title>
+    <title>Mórun Intenções - Onde a Magia Acontece</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Favicon para dar um toque profissional -->
+    <link rel="icon" href="https://i.ibb.co/YBN2pyJf/Imagem-do-Whats-App-de-2025-09-16-s-16-07-57-8d309fe9.jpg" type="image/x-icon">
     <style>
         /* Estilos Premium Refinados */
+        :root {
+            --gold: #c09f58;
+            --light-gold: #fde08d;
+            --dark-bg: #0a0a0a;
+            --card-bg: #121212;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+        }
+
+        ::selection {
+            background-color: var(--gold);
+            color: var(--dark-bg);
+        }
+
         body {
-            background-color: #0a0a0a;
-            color: #e0e0e0;
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at 25% 25%, rgba(192, 159, 88, 0.05), transparent 30%),
+                              radial-gradient(circle at 75% 75%, rgba(192, 159, 88, 0.05), transparent 30%);
+            color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             letter-spacing: 0.5px;
+            cursor: none; /* Esconde o cursor padrão */
         }
+
+        /* Cursor Personalizado */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--gold);
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(192, 159, 88, 0.5);
+            transition: width 0.3s, height 0.3s, border-color 0.3s, top 0.2s ease-out, left 0.2s ease-out;
+        }
+        body:hover .cursor-dot, body:hover .cursor-outline {
+            opacity: 1;
+        }
+        .cursor-outline.hovered {
+            width: 60px;
+            height: 60px;
+            border-color: var(--light-gold);
+        }
+
         .font-serif-display {
             font-family: 'Cormorant Garamond', serif;
         }
+
         .gold-text-gradient {
-            background: linear-gradient(90deg, #c09f58, #fde08d, #c09f58);
+            background: linear-gradient(90deg, var(--gold), var(--light-gold), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: gradient-shine 8s linear infinite;
         }
+
         .card-bg {
-            background-color: #121212;
+            background-color: var(--card-bg);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(192, 159, 88, 0.1);
             transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
-        .card-bg:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 15px rgba(192, 159, 88, 0.2);
+        .card-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(253, 224, 141, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
+        .card-bg:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 20px rgba(192, 159, 88, 0.2);
+            border-color: rgba(192, 159, 88, 0.3);
+        }
+        .card-bg:hover::before {
+            opacity: 1;
+        }
+
         .btn-gold {
-            background: linear-gradient(90deg, #c09f58, #d4af37);
+            background: linear-gradient(90deg, var(--gold), #d4af37);
             color: #111;
             transition: all 0.4s ease;
             box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
-            border: 1px solid #c09f58;
+            border: 1px solid var(--gold);
         }
         .btn-gold:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(192, 159, 88, 0.3);
-            background: #0a0a0a;
-            color: #c09f58;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(192, 159, 88, 0.35);
+            background: var(--dark-bg);
+            color: var(--gold);
         }
-       
-        /* Animação de brilho místico sutil */
+
         @keyframes mysticGlow {
-            0%, 100% {
-                text-shadow: 0 0 5px rgba(212, 175, 55, 0.3), 0 0 10px rgba(212, 175, 55, 0.2);
-            }
-            50% {
-                text-shadow: 0 0 10px rgba(253, 224, 141, 0.5), 0 0 20px rgba(253, 224, 141, 0.3);
-            }
+            0%, 100% { text-shadow: 0 0 6px rgba(212, 175, 55, 0.3), 0 0 12px rgba(212, 175, 55, 0.2); }
+            50% { text-shadow: 0 0 12px rgba(253, 224, 141, 0.5), 0 0 24px rgba(253, 224, 141, 0.3); }
         }
-        
-        @keyframes gradient-shine {
-            to {
-                background-position: 200% center;
-            }
-        }
-        
+        @keyframes gradient-shine { to { background-position: 200% center; } }
+
         .mystic-glow-text {
             animation: mysticGlow 5s ease-in-out infinite;
         }
 
-        /* Efeito Parallax */
         .parallax-bg {
             background-attachment: fixed;
             background-position: center;
@@ -79,7 +139,6 @@
             background-size: cover;
         }
 
-        /* Animações de entrada */
         .fade-in-section {
             opacity: 0;
             transform: translateY(40px);
@@ -90,54 +149,93 @@
             transform: translateY(0);
         }
 
-        /* Animated Pentagram Divider */
-        #pentagram-divider {
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            --s: 3s;
+        /* Header com efeito de scroll */
+        header {
+            transition: background-color 0.4s ease-out, backdrop-filter 0.4s ease-out, box-shadow 0.4s ease-out;
+        }
+        header.scrolled {
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
 
-        #pentagram-divider .anim > * {
-            animation: StrokeAnim var(--s) linear infinite reverse;
+        nav a {
+            position: relative;
+            transition: color 0.3s;
         }
-
-        #pentagram-divider .anim > *:nth-child(1) {
-            transform-origin: center center;
-            transform: rotate(-90deg) scaleY(-1);
+        nav a:hover {
+            color: var(--light-gold);
         }
-        #pentagram-divider .anim > *:nth-child(2) {
-            animation-delay: var(--s);
-            transform-origin: center center;
-            transform: rotate(-90deg);
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--light-gold);
+            transition: width 0.4s ease;
         }
-        #pentagram-divider .anim > *:nth-child(3) {
-            animation-delay: calc(var(--s) * 2);
+        nav a:hover::after {
+            width: 100%;
         }
-
-        @keyframes StrokeAnim {
-            from {stroke-dashoffset: 0;}
+        
+        /* Indicador de Scroll */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            animation: bounce 2s infinite;
         }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); } 40% { transform: translate(-50%, -20px); } 60% { transform: translate(-50%, -10px); } }
+        
+        /* Seção Oráculo */
+        #oracle-answer {
+            min-height: 100px;
+            transition: opacity 1s ease-in-out;
+        }
+        #oracle-thinking {
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>
 </head>
 <body class="bg-black">
+    
+    <!-- Cursor Personalizado -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
-    <header class="py-6 px-4 md:px-8 absolute top-0 left-0 w-full z-20">
-        <div class="container mx-auto flex justify-center items-center">
-             <img src="https://i.ibb.co/YBN2pyJf/Imagem-do-Whats-App-de-2025-09-16-s-16-07-57-8d309fe9.jpg" alt="Logo Mórun Intenções" class="h-24 md:h-28 rounded-full border-2 border-[#c09f58]/50 shadow-2xl shadow-black/50 transition-transform duration-300 hover:scale-105">
+    <header id="main-header" class="py-4 px-4 md:px-8 fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="font-serif-display text-2xl font-bold gold-text-gradient tracking-wider">Mórun</a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-widest">
+                <a href="#produtos">Produtos</a>
+                <a href="#sobre">A Guardiã</a>
+                <a href="#oraculo">Oráculo</a>
+                <a href="#avaliacoes">Depoimentos</a>
+            </nav>
+            <a href="https://www.instagram.com/nina.morun/" target="_blank" rel="noopener noreferrer" class="btn-gold font-bold py-2 px-6 rounded-full text-xs tracking-wider">Contato</a>
         </div>
     </header>
 
     <section class="min-h-screen flex flex-col justify-center items-center text-center pt-32 md:pt-40 px-4 relative parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10"></div>
-        <div class="z-10 relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10"></div>
+        <div class="z-20 relative">
+            <img src="https://i.ibb.co/YBN2pyJf/Imagem-do-Whats-App-de-2025-09-16-s-16-07-57-8d309fe9.jpg" alt="Logo Mórun Intenções" class="h-28 md:h-32 rounded-full border-2 border-[var(--gold)]/50 shadow-2xl shadow-black/50 mx-auto mb-6 transition-transform duration-300 hover:scale-105">
             <h1 class="font-serif-display text-6xl md:text-8xl font-bold gold-text-gradient mb-4 drop-shadow-lg mystic-glow-text tracking-wider">
                 Mórun Intenções
             </h1>
             <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-300/90 tracking-widest font-light uppercase">
                 Onde a magia antiga encontra o propósito moderno
             </p>
+        </div>
+        <div class="scroll-indicator">
+            <svg class="w-8 h-8 text-[var(--gold)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </div>
     </section>
     
@@ -147,34 +245,37 @@
             <div class="text-center mb-16">
                 <h2 class="font-serif-display text-5xl md:text-6xl font-semibold gold-text-gradient mystic-glow-text tracking-wide">Nossas Intenções</h2>
                 <p class="text-gray-400 mt-4 max-w-xl mx-auto">Feitiços e artefatos criados para manifestar seus desejos mais profundos.</p>
-                <div class="mt-6 w-24 h-px bg-gradient-to-r from-transparent via-[#c09f58] to-transparent mx-auto"></div>
+                <div class="mt-6 w-24 h-px bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent mx-auto"></div>
             </div>
 
             <div class="grid md:grid-cols-3 gap-10">
-                <div class="group card-bg border border-[#c09f58]/20 rounded-xl overflow-hidden">
+                <!-- Card 1 -->
+                <div class="group card-bg border border-[var(--gold)]/20 rounded-xl overflow-hidden">
                     <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/LXpGHS0V/1.jpg');"></div>
                     <div class="p-8 text-center">
-                        <h3 class="font-serif-display text-3xl font-bold text-[#fde08d] mb-3 tracking-wide">Óleo Intencional</h3>
+                        <h3 class="font-serif-display text-3xl font-bold text-[var(--light-gold)] mb-3 tracking-wide">Óleo Intencional</h3>
                         <p class="text-gray-400 mb-6 font-light h-24">Cada gota é uma poção, misturando óleos e ervas consagradas para alinhar suas energias com os desejos de sua alma.</p>
                         <a href="https://www.instagram.com/nina.morun/" target="_blank" rel="noopener noreferrer">
                             <button class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider">Saiba Mais</button>
                         </a>
                     </div>
                 </div>
-                <div class="group card-bg border border-[#c09f58]/20 rounded-xl overflow-hidden">
+                <!-- Card 2 -->
+                <div class="group card-bg border border-[var(--gold)]/20 rounded-xl overflow-hidden">
                     <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/PsFMNzsP/2.jpg');"></div>
                     <div class="p-8 text-center">
-                        <h3 class="font-serif-display text-3xl font-bold text-[#fde08d] mb-3 tracking-wide">Grimório Artesanal</h3>
+                        <h3 class="font-serif-display text-3xl font-bold text-[var(--light-gold)] mb-3 tracking-wide">Grimório Artesanal</h3>
                         <p class="text-gray-400 mb-6 font-light h-24">Páginas que aguardam seus feitiços. Um grimório feito à mão para ser o guardião de sua jornada mágica.</p>
                          <a href="https://www.instagram.com/nina.morun/" target="_blank" rel="noopener noreferrer">
                             <button class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider">Saiba Mais</button>
                         </a>
                     </div>
                 </div>
-                <div class="group card-bg border border-[#c09f58]/20 rounded-xl overflow-hidden">
+                <!-- Card 3 -->
+                <div class="group card-bg border border-[var(--gold)]/20 rounded-xl overflow-hidden">
                      <div class="h-80 bg-cover bg-center" style="background-image: url('https://i.ibb.co/5X1NydsS/3.jpg');"></div>
                     <div class="p-8 text-center">
-                        <h3 class="font-serif-display text-3xl font-bold text-[#fde08d] mb-3 tracking-wide">Capas Medievais</h3>
+                        <h3 class="font-serif-display text-3xl font-bold text-[var(--light-gold)] mb-3 tracking-wide">Capas Medievais</h3>
                         <p class="text-gray-400 mb-6 font-light h-24">Vista-se com o mistério da noite. Capas tecidas com fios de poder, perfeitas para rituais ou para o dia a dia.</p>
                          <a href="https://www.instagram.com/nina.morun/" target="_blank" rel="noopener noreferrer">
                             <button class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider">Saiba Mais</button>
@@ -184,46 +285,12 @@
             </div>
         </section>
 
-        <div class="flex justify-center my-24 md:my-32 fade-in-section">
-            <svg id="pentagram-divider" class="w-32 h-32" viewbox="0 0 60 60">
-                <mask id="alpha">
-                  <image href="https://i.imgur.com/q8EoBaE.png" width="100%" height="100%" preserveAspectRatio="xMinYMin slice"></image>
-                </mask>
-              
-                <g stroke="rgba(212, 175, 55, 0.25)" stroke-width=".35" fill="none" class="anim" filter="url(#glow)">
-                  <circle cx="30" cy="30" r="24.65" stroke-dasharray="155,155" stroke-dashoffset="155"/>
-                  <circle cx="30" cy="30" r="20.65" stroke-dasharray="130,130" stroke-dashoffset="130"/>
-                  <path d="M 30 9.5 L 42.35 46 L 10.65 24.35 L 49.35 24.35 L 17.75 46 L 30 9.5" stroke-dasharray="193,193" stroke-dashoffset="193"/>
-                </g>
-                
-                <g stroke="#c09f58" stroke-width=".35" fill="none" class="anim" mask="url(#alpha)">
-                  <circle cx="30" cy="30" r="24.65" stroke-dasharray="155,155" stroke-dashoffset="155" />
-                  <circle cx="30" cy="30" r="20.65" stroke-dasharray="130,130" stroke-dashoffset="130" />
-                  <path d="M 30 9.5 L 42.35 46 L 10.65 24.35 L 49.35 24.35 L 17.75 46 L 30 9.5" stroke-dasharray="193,193" stroke-dashoffset="193"/>
-                </g>
-                
-                <g>
-                  <defs>
-                    <filter id="glow">
-                      <feGaussianBlur stdDeviation="1 1" result="glow"/>
-                      <feMerge>
-                        <feMergeNode in="glow"/>
-                        <feMergeNode in="glow"/>
-                      </feMerge>
-                    </filter>
-                  </defs>
-                </g>
-              </svg>
-        </div>
-
         <section id="sobre" class="mb-24 md:mb-32 fade-in-section">
-            <div class="flex flex-col lg:flex-row items-center gap-16 card-bg p-8 md:p-12 rounded-xl border border-[#c09f58]/20">
-                <div class="lg:w-1/3 flex-shrink-0">
-                     <div class="w-64 h-64 md:w-80 md:h-80 rounded-full mx-auto parallax-bg border-4 border-[#c09f58] shadow-2xl shadow-black/50" style="background-image: url('https://i.ibb.co/Dqq83Hz/5.jpg');"></div>
-                     <div class="text-center">
-                        <h3 class="font-serif-display text-4xl font-bold text-[#fde08d] mt-6 tracking-wide">Mórun</h3>
-                        <p class="text-gray-400/90 italic">Oráculo e Guardiã dos Segredos</p>
-                     </div>
+            <div class="flex flex-col lg:flex-row items-center gap-16 card-bg p-8 md:p-12 rounded-xl border border-[var(--gold)]/20">
+                <div class="lg:w-1/3 flex-shrink-0 text-center">
+                     <div class="w-64 h-64 md:w-80 md:h-80 rounded-full mx-auto parallax-bg border-4 border-[var(--gold)] shadow-2xl shadow-black/50" style="background-image: url('https://i.ibb.co/Dqq83Hz/5.jpg');"></div>
+                    <h3 class="font-serif-display text-4xl font-bold text-[var(--light-gold)] mt-6 tracking-wide">Mórun</h3>
+                    <p class="text-gray-400/90 italic">Oráculo e Guardiã dos Segredos</p>
                 </div>
                 <div class="lg:w-2/3">
                     <h2 class="font-serif-display text-4xl md:text-5xl font-semibold gold-text-gradient mb-6 mystic-glow-text tracking-wide">A Guardiã das Chaves</h2>
@@ -233,32 +300,55 @@
             </div>
         </section>
 
+        <!-- NOVA SEÇÃO: ORÁCULO -->
+        <section id="oraculo" class="mb-24 md:mb-32 fade-in-section text-center">
+            <div class="text-center mb-16">
+                <h2 class="font-serif-display text-5xl md:text-6xl font-semibold gold-text-gradient mystic-glow-text tracking-wide">Consulte o Oráculo</h2>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Silencie sua mente, concentre-se em sua questão e clique para receber uma mensagem.</p>
+                <div class="mt-6 w-24 h-px bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent mx-auto"></div>
+            </div>
+
+            <div class="max-w-3xl mx-auto card-bg p-8 md:p-12 rounded-xl border border-[var(--gold)]/20">
+                <div id="oracle-answer" class="font-serif-display italic text-2xl text-gray-300 flex items-center justify-center">
+                    <p>O véu aguarda sua intenção...</p>
+                </div>
+                 <div id="oracle-thinking" class="flex justify-center items-center my-4">
+                     <svg class="w-16 h-16 text-[var(--gold)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.792V6.32a2.25 2.25 0 00-2.25-2.25h-5.379a2.25 2.25 0 00-1.591.659l-4-592 4.592a2.25 2.25 0 000 3.182l4.592 4.592a2.25 2.25 0 003.182 0l4.592-4.592a2.25 2.25 0 00.659-1.591z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 9.75a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0z" />
+                    </svg>
+                </div>
+                <button id="oracle-button" class="btn-gold font-bold py-3 px-8 rounded-full text-sm tracking-wider mt-8">Revelar Destino</button>
+            </div>
+        </section>
+
+
         <section id="avaliacoes" class="fade-in-section">
             <div class="text-center mb-16">
                 <h2 class="font-serif-display text-5xl md:text-6xl font-semibold gold-text-gradient mystic-glow-text tracking-wide">Palavras Encantadas</h2>
                 <p class="text-gray-400 mt-4">O que dizem aqueles que abriram as portas do destino.</p>
-                <div class="mt-6 w-24 h-px bg-gradient-to-r from-transparent via-[#c09f58] to-transparent mx-auto"></div>
+                <div class="mt-6 w-24 h-px bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent mx-auto"></div>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card-bg p-8 rounded-xl border border-[#c09f58]/20">
+                <div class="card-bg p-8 rounded-xl border border-[var(--gold)]/20">
                     <p class="text-gray-300/90 italic mb-6 font-light">"O Óleo Intencional de Prosperidade abriu caminhos que eu nem imaginava. Sinto minha energia renovada e focada. Um produto verdadeiramente mágico!"</p>
                     <div class="flex items-center">
-                        <div class="text-[#fde08d]">★★★★★</div>
+                        <div class="text-[var(--light-gold)]">★★★★★</div>
                         <p class="ml-auto font-bold text-gray-400/80 tracking-widest text-sm">- JULIANA P.</p>
                     </div>
                 </div>
-                <div class="card-bg p-8 rounded-xl border border-[#c09f58]/20">
+                <div class="card-bg p-8 rounded-xl border border-[var(--gold)]/20">
                     <p class="text-gray-300/90 italic mb-6 font-light">"Meu Grimório Artesanal é uma obra de arte. A qualidade é impecável e sinto uma conexão poderosa com ele. Perfeito para registrar minha jornada."</p>
                     <div class="flex items-center">
-                        <div class="text-[#fde08d]">★★★★★</div>
+                        <div class="text-[var(--light-gold)]">★★★★★</div>
                         <p class="ml-auto font-bold text-gray-400/80 tracking-widest text-sm">- CARLOS M.</p>
                     </div>
                 </div>
-                <div class="card-bg p-8 rounded-xl border border-[#c09f58]/20">
+                <div class="card-bg p-8 rounded-xl border border-[var(--gold)]/20">
                     <p class="text-gray-300/90 italic mb-6 font-light">"A Capa Medieval é deslumbrante, o tecido tem um caimento perfeito. Usei em um ritual e a energia foi outra. Superou todas as minhas expectativas."</p>
                     <div class="flex items-center">
-                        <div class="text-[#fde08d]">★★★★★</div>
+                        <div class="text-[var(--light-gold)]">★★★★★</div>
                         <p class="ml-auto font-bold text-gray-400/80 tracking-widest text-sm">- FERNANDA S.</p>
                     </div>
                 </div>
@@ -266,28 +356,112 @@
         </section>
     </main>
 
-    <footer class="border-t border-[#c09f58]/20 mt-24 md:mt-32 py-10">
+    <footer class="border-t border-[var(--gold)]/20 mt-24 md:mt-32 py-10">
         <div class="container mx-auto text-center text-gray-500">
+             <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://www.instagram.com/nina.morun/" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-[var(--gold)] transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c-4.01.053-4.484.06-6.096.126-1.613.065-2.73.33-3.693.712-.98.39-1.84.92-2.673 1.753C-.73 5.56.2 6.42.59 7.393c.383.963.647 2.08.712 3.693.066 1.612.074 2.086.06 6.096-.014 4.01-.053 4.484-.126 6.096-.065 1.613-.33 2.73-.712 3.693-.39.98-.92 1.84-1.753 2.673-.97 1.1-2.16 1.42-3.693.59-.963-.383-2.08-.647-3.693-.712-1.612-.066-2.086-.074-6.096-.06 4.01.014 4.484.053 6.096.126 1.613.065 2.73.33 3.693.712.98.39 1.84.92 2.673 1.753.833.833 1.363 1.693 1.753 2.673.383.963.647 2.08.712 3.693.066 1.612.074 2.086.06 6.096.014-4.01.053-4.484.126-6.096.065-1.613.33-2.73.712-3.693.39-.98.92-1.84 1.753-2.673.833-.833 1.693-1.363 2.673-1.753.963-.383 2.08-.647 3.693-.712 1.612-.066 2.086-.074 6.096-.06zm-1.88 2.01c-3.6 0-6.49 2.89-6.49 6.49s2.89 6.49 6.49 6.49 6.49-2.89 6.49-6.49-2.89-6.49-6.49-6.49zm0 10.92c-2.45 0-4.43-1.98-4.43-4.43s1.98-4.43 4.43-4.43 4.43 1.98 4.43 4.43-1.98 4.43-4.43 4.43zm4.72-8.31a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd" /></svg>
+                </a>
+                <!-- Adicionar outros ícones sociais se necessário -->
+            </div>
             <p class="tracking-wide">&copy; 2025 Mórun Intenções. Todos os direitos reservados.</p>
-            <p class="text-sm mt-2 font-serif-display italic text-[#c09f58]/60">A magia está em suas mãos.</p>
+            <p class="text-sm mt-2 font-serif-display italic text-[var(--gold)]/60">A magia está em suas mãos.</p>
         </div>
     </footer>
 
     <script>
-        // Script para animação de fade-in ao rolar a página
-        const sections = document.querySelectorAll('.fade-in-section');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Script para animação de fade-in ao rolar a página
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => { observer.observe(section); });
+
+            // Script para header com efeito de scroll
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
                 }
             });
-        }, {
-            threshold: 0.15
-        });
-        sections.forEach(section => {
-            observer.observe(section);
+
+            // Script para cursor personalizado
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                cursorOutline.style.left = `${posX}px`;
+                cursorOutline.style.top = `${posY}px`;
+            });
+
+            // CORREÇÃO: Oculta a auréola do cursor durante o clique para garantir que não intercepte o evento
+            window.addEventListener('mousedown', () => {
+                cursorOutline.style.opacity = '0';
+            });
+            window.addEventListener('mouseup', () => {
+                cursorOutline.style.opacity = '1';
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseover', () => cursorOutline.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovered'));
+            });
+
+            // Script para o Oráculo
+            const oracleButton = document.getElementById('oracle-button');
+            const oracleAnswerEl = document.getElementById('oracle-answer');
+            const oracleThinkingEl = document.getElementById('oracle-thinking');
+            
+            const oracleAnswers = [
+                "A energia flui onde a intenção vai. Concentre-se no que deseja, não no que teme.",
+                "As estrelas se alinham a seu favor. Aja com coragem e o universo responderá.",
+                "Uma porta se fechará para que um novo caminho se revele. Confie na transição.",
+                "A semente da prosperidade já foi plantada. Regue-a com gratidão e paciência.",
+                "Olhe para dentro. A resposta que você busca já reside em sua intuição.",
+                "O poder da lua crescente impulsiona seus projetos. É hora de iniciar.",
+                "Como a fênix, você ressurgirá mais forte das cinzas da dificuldade.",
+                "A teia do destino é tecida com fios de suas próprias escolhas. Escolha com sabedoria.",
+                "Proteja sua energia. Nem todos que sorriem desejam o seu bem.",
+                "O amor que você procura está mais perto do que imagina. Abra seu coração."
+            ];
+
+            oracleButton.addEventListener('click', () => {
+                oracleButton.disabled = true;
+                oracleButton.textContent = 'Canalizando...';
+                oracleAnswerEl.style.opacity = 0;
+                oracleThinkingEl.style.display = 'flex';
+
+                setTimeout(() => {
+                    const randomIndex = Math.floor(Math.random() * oracleAnswers.length);
+                    const randomAnswer = oracleAnswers[randomIndex];
+                    
+                    oracleThinkingEl.style.display = 'none';
+                    oracleAnswerEl.innerHTML = `<p>"${randomAnswer}"</p>`;
+                    
+                    // CORREÇÃO: Força o navegador a processar a mudança de conteúdo antes de iniciar a animação de fade-in
+                    setTimeout(() => {
+                        oracleAnswerEl.style.opacity = 1;
+                    }, 20);
+                    
+                    oracleButton.disabled = false;
+                    oracleButton.textContent = 'Revelar Novo Destino';
+                }, 2500);
+            });
         });
     </script>
 
